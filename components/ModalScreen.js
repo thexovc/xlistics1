@@ -48,7 +48,7 @@ renderContent = () => {
   return (
     <View>
       <FlatList
-      style={{marginBottom: 10}}
+      style={{marginBottom: 5}}
       showsVerticalScrollIndicator={false} 
       // renderItem={this.renderItem}
       // extraData={Data}

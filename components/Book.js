@@ -4,11 +4,11 @@ import tw from 'twrnc';
 import { TailwindProvider } from 'tailwindcss-react-native';
 import { Picker } from '@react-native-picker/picker';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-
+import {Entypo} from '@expo/vector-icons';
 
 
 const Book = () => {
-    const [country, setCountry] = useState('unknown');
+    const [category, setCategory] = useState('unknown');
     const [text, onChangeText] = React.useState(placeholder);
     const [tet, onChangeTet] = React.useState(placeholder);
     const [txt, onChangeTxt] = React.useState(placeholder);
@@ -19,20 +19,24 @@ const Book = () => {
   return (
     <TailwindProvider>
         <SafeAreaView>
-        <View style={tw`flex-initial w-90 self-center h-8 rounded-md border-solid border-2 `}>
-      <Picker style={tw`flex-1 mb-20 p-5 `}
-        selectedValue={country}
+        <View style={tw`flex-initial w-80 self-center h-12 mb-2 `}>
+      <Picker 
+      itemStyle={{height:45 }}
+        selectedValue={category}
         onValueChange={(value, index)  => 
-        setCountry(value)
+        setCategory(value)
         }>
-        <Picker.Item label="Please select your country" value="Unknown" />
-        <Picker.Item label="Australia" value="Australia" />
-        <Picker.Item label="Belgium" value="Belgium" />
-        <Picker.Item label="Canada" value="Canada" />
+        <Picker.Item label="Please select your Category" value="Unknown" />
+        <Picker.Item label="International" value="International" />
+        <Picker.Item label="Interstate" value="Interstate" />
+        <Picker.Item label="Intercity" value="Intercity" />
       </Picker>
     </View>
-   <View style={tw`pb-4 self-center w-90`}>
-       <TextInput style={tw`h-10 p-2 border-b border-black`} 
+    
+     
+   <View style={tw`h-10 p-2 border-b border-black pb-4 self-center w-90`}>
+   <Entypo style={tw`h-6 w-10 self-start`} name="location-pin" size={24} color="red" />
+       <TextInput style={tw`ml-5 `} 
        onChangeTet={onChangeTet}
        value={tet}
        placeholder="Where-from"

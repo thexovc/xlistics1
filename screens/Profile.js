@@ -25,7 +25,7 @@ class ToolTips extends Component {
                     {
                         this.state.names.map((item, index) => (     
                             <TouchableOpacity>
-                            <View style={tw`mb-2 flex-row bg-gray-100 pt-4  justify-between my-1 px-2`} key = { item.id }>
+                            <View style={tw`mb-2 flex-row bg-gray-100 pt-4 w-90 self-center justify-between my-1 px-2`} key = { item.id }>
                                 <View style={tw`flex-auto`}>
                                 <View style={tw`flex-col`}>
                                 <Text style={tw`text-2xl font-bold`}>{item.bar}</Text>

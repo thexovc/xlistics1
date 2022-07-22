@@ -17,26 +17,29 @@ const SignUpScreen = () => {
 
   return (
     <TailwindProvider> 
-      <SafeAreaView style={tw`flex-1 w-full h-full justify-center self-center bg-white`}>
-      <View style={tw` items-center`}>
+      <SafeAreaView style={tw`flex-1 w-full self-center bg-white`}>
+      <View style={tw`justify-start  mt-8 items-center`}>
         <Image source={require('../assets/png.png')}  style={tw`w-24 h-6 mb-10 `}/>
       </View>
         <Text style={tw`text-4xl w-100 pl-5 self-center`}>Sign up</Text>
+      <View
+      style={tw`w-10 h-.5 bg-black rounded-lg ml-16 mt-3 mb-4`}/>
         <Text style={tw`text-center text-lg`}>Earn by your delivery service</Text>
-       <View style={tw`pb-4 pt-8 w-100 self-center`}>
+       <View style={tw`pb-4 pt-8 w-90 self-center`}>
        <TextInput style={tw`h-6 rounded-md bg-gray-100`} placeholder='   FIrst name' />
        </View>
-       <View style={tw`pb-4 w-100 self-center`}>
+       <View style={tw`pb-4 w-90 self-center`}>
        <TextInput style={tw`h-6 rounded-md bg-gray-100`} placeholder='   Last name' />
        </View>
-       <View style={tw`pb-4 w-100 self-center`}>
+       <View style={tw`pb-4 w-90 self-center`}>
        <TextInput style={tw`h-6 rounded-md bg-gray-100`} placeholder='   E-mail' />
        </View>
-       <View style={tw`pb-4 w-100 self-center`}>
+       <View style={tw`pb-4 w-90 self-center`}>
        <TextInput style={tw`h-6 rounded-md bg-gray-100`} placeholder='   Phone no' />
        </View>
-       <View style={tw`flex-initial pb-2`}>
+       <View style={tw`flex-initial self-center w-90 pb-2`}>
        <Picker
+       itemStyle={{height:50}}
        selectedValue={country}
         onValueChange={(value, index) => setCountry(value)}
        >
@@ -46,8 +49,9 @@ const SignUpScreen = () => {
          <Picker.Item label = 'Congo' value = 'Congo'  />
        </Picker>
        </View>
-       <View style={tw`flex-initial pb-4`}>
+       <View style={tw`flex-initial self-center w-90 pb-4`}>
        <Picker
+       itemStyle={{height:50}}
        selectedValue={state}
        onValueChange={(value, index) => setState(value)}
        >
@@ -57,8 +61,9 @@ const SignUpScreen = () => {
          <Picker.Item label = 'Benin' value = 'Benin'  />
        </Picker>
        </View>
-       <View style={tw`flex-initial pb-10`}>
+       <View style={tw`flex-initial self-center w-90 pb-10`}>
        <Picker
+       itemStyle={{height:50}}
        selectedValue={county}
        onValueChange={(value, index) => setCounty(value)}
        >

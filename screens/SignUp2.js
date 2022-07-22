@@ -3,12 +3,14 @@ import { Text, SafeAreaView, View, Button, StyleSheet, StatusBar, Dimensions, To
 import { TailwindProvider } from 'tailwindcss-react-native';
 import tw from 'twrnc';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
+// import CheckBox from '@react-native-community/checkbox';
 
 // import CheckBox from '@react-native-community/checkbox'
 
 const deviceHeight = Dimensions.get("window").height
 const SignUp2 = () => {
     const navigation = useNavigation();
+    // const [toggleCheckBox, setToggleCheckBox] = useState(false)
     
   return (
     <TailwindProvider> 
@@ -17,6 +19,8 @@ const SignUp2 = () => {
         <Image source={require('../assets/png.png')}  style={tw`w-24 h-6 mb-10 `}/>
       </View>
         <Text style={tw`text-4xl w-100 pl-5 self-center`}>Sign up</Text>
+        <View
+      style={tw`w-10 h-.5 bg-black rounded-lg ml-16 mt-3 mb-4`}/>
         <Text style={tw`text-center text-lg`}>Do your thing X</Text>
       
        <View style={tw`p-2 mt-10 w-90 border-b self-center`}>
@@ -24,6 +28,11 @@ const SignUp2 = () => {
        </View>
        
        <View>
+       {/* <CheckBox
+    disabled={false}
+    value={toggleCheckBox}
+    onValueChange={(newValue) => setToggleCheckBox(newValue)}
+  /> */}
          <Text style={tw` p-2 text-sm w-80 self-center`}>By signing up you agree to our term of services and privacy policy</Text>
        </View>
        <View style={tw`pt-5 ml-60 w-30 self-center`}>
