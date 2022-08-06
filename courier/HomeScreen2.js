@@ -1,10 +1,11 @@
 import {FlatList, StyleSheet, TouchableOpacity, View, Text, SafeAreaView, Image} from "react-native";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import tw from "twrnc";
 // import NavOptions from "../components/NavOptions";
 import { TailwindProvider } from "tailwindcss-react-native";
 import { Icon } from "react-native-elements/dist/icons/Icon";
 import { FontAwesome5 } from '@expo/vector-icons';
+import { UserContext } from "../context/userContext";
 
 
 const data = ([
@@ -12,23 +13,25 @@ const data = ([
       id: "012",
       title: "Intercity",
       image: require("../assets/city.png"),
-      // screen: "ModalScreen",
+      screen: "InterCity",
   },
   {
       id: "123",
       title: "Interstate",
       image: require("../assets/state.png"),
-      // screen: "BookScreen",
+      screen: "InterState",
   },
   {
     id: "235",
     title: "International",
     image: require("../assets/international.png"),
-    // screen: "BookScreen",
+    screen: "International",
 },
 ]);
 
 const HomeScreen2 = ({navigation}) => {
+
+  const { user} = useContext(UserContext)
   
   return (
     
@@ -51,7 +54,7 @@ const HomeScreen2 = ({navigation}) => {
       keyExtractor={(item) => item.id}
       renderItem={({item}) => (
         <TouchableOpacity 
-        // onPress={() => navigation.navigate(item.screen)}
+        onPress={() => navigation.navigate(item.screen)}
         style={tw`p-2 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-35`}>
           <View style={tw`w-150 h-30`}>
             <Image
@@ -70,7 +73,7 @@ const HomeScreen2 = ({navigation}) => {
       
       <View style={{alignItems: 'flex-start', justifyContent: 'center', marginLeft: 200, marginTop: -290}}>
         <Text style={{fontSize: 20}}
-        >Welcome Back Jane</Text>
+        >{user.displayName} Welcome</Text>
       </View>
 
       <View

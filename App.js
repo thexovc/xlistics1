@@ -14,7 +14,13 @@ import '@expo/match-media';
 import SideBar from "./screens/SideBar";
 import ChatScreen from "./screens/Chat";
 import ToolTips from "./screens/Profile";
-import SideBar2 from "./courier/SIdeBar2";
+import SideBar2 from "./courier/SideBar2";
+import { UserProvider } from "./context/userContext";
+import OtpScreen from "./screens/Otpscreen";
+import Login from "./courier/Login";
+import InterCity from "./courier/InterCity";
+import International from "./courier/International";
+import InterState from "./courier/InterState";
 
 
 
@@ -27,8 +33,8 @@ export default function App() {
 
   return (
 
-    // <Provider store={store}>
-      <NavigationContainer>
+      <UserProvider>
+        <NavigationContainer>
       <StatusBar  barStyle= "dark-content"/>
         <SafeAreaProvider>
          <Stack.Navigator>
@@ -68,8 +74,22 @@ export default function App() {
             }}
             />
             <Stack.Screen 
+            name="OtpScreen" 
+            component={OtpScreen}
+            options={{
+              headerShown: false,
+            }}
+            />
+            <Stack.Screen 
             name="SignUpScreen" 
             component={SignUpScreen}
+            options={{
+              headerShown: false,
+            }}
+            />
+            <Stack.Screen 
+            name="Login" 
+            component={Login}
             options={{
               headerShown: false,
             }}
@@ -81,10 +101,32 @@ export default function App() {
               headerShown: true,
             }}
             />
+             <Stack.Screen 
+            name="InterCity" 
+            component={InterCity}
+            options={{
+              headerShown: true,
+            }}
+            />
+             <Stack.Screen 
+            name="International" 
+            component={International}
+            options={{
+              headerShown: true,
+            }}
+            />
+             <Stack.Screen 
+            name="InterState" 
+            component={InterState}
+            options={{
+              headerShown: true,
+            }}
+            />
          </Stack.Navigator>
         </SafeAreaProvider>
       </NavigationContainer>
-    // </Provider>
+      </UserProvider>
+   
   );
 }
 

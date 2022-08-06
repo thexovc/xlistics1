@@ -6,12 +6,8 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { onAuthStateChanged, RecaptchaVerifier, signInWithPhoneNumber, signOut } from "firebase/auth";
 import db, { authentication } from '../firebase';
 import { addDoc, collection } from 'firebase/firestore';
-// import CheckBox from '@react-native-community/checkbox';
-
-// import CheckBox from '@react-native-community/checkbox'
-
 const deviceHeight = Dimensions.get("window").height
-const SignUp2 = () => {
+const OtpScreen = () => {
     const navigation = useNavigation();
     // const [toggleCheckBox, setToggleCheckBox] = useState(false)
 
@@ -92,16 +88,6 @@ const SignUp2 = () => {
         }
     }
 
-    const logout = () => {
-        signOut(authentication)
-            .then(() => {
-                console.log("user has signed out")
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }
-
     
   return (
     <TailwindProvider> 
@@ -109,24 +95,28 @@ const SignUp2 = () => {
       <View style={tw` items-center pt-15`}>
         <Image source={require('../assets/png.png')}  style={tw`w-24 h-6 mb-10 `}/>
       </View>
-        <Text style={tw`text-4xl w-100 pl-5 self-center`}>Sign up</Text>
+        <Text style={tw`text-4xl w-100 pl-5 self-center`}>Enter OTP</Text>
         <View
       style={tw`w-10 h-.5 bg-black rounded-lg ml-16 mt-3 mb-4`}/> 
-        <Text style={tw`text-center text-lg`}>Do your thing X</Text>
+        <Text style={tw`text-center text-lg`}>An OTP is sent to xxxxxxx</Text>
       
-       <View style={tw`p-2 mt-10 w-90 border-b self-center`}>
-       <TextInput style={tw`h-6 rounded bg-gray-10`} value={phone} onChangeText={setPhone} placeholder='   Phone no' />
+       <View style={tw`p-2 mt-10 w-80 border-b self-center`}>
+       <TextInput style={tw`h-6 rounded bg-gray-10`} value={otp} onChangeText={setOtp} placeholder='   Verify' />
+       <View id="recaptcha" />
        </View>
        
        <View>
-      
-         <Text style={tw` p-2 text-sm w-80 self-center`}>By signing up you agree to our term of services and privacy policy</Text>
+       {/* <CheckBox
+    disabled={false}
+    value={toggleCheckBox}
+    onValueChange={(newValue) => setToggleCheckBox(newValue)}
+  /> */}
+         <Text style={tw` p-5 text-sm w-80 self-center`}>Resend OTP in xxx</Text>
        </View>
        <View style={tw`pt-5 ml-60 w-30 self-center`}>
-     
-       <TouchableOpacity onPress={() => navigation.navigate("OtpScreen")} style={tw`h-10 w-full rounded-3xl bg-black`}>
+       <TouchableOpacity onPress={() => navigation.navigate("SideBar")} style={tw`h-10 w-full rounded-3xl bg-black`}>
           
-        <Text style={tw`text-white text-lg text-center pt-1.5`}>Next</Text>
+        <Text style={tw`text-white text-lg text-center pt-1.5`}>Verify OTP</Text>
       </TouchableOpacity>
       </View>
       </SafeAreaView>
@@ -134,4 +124,4 @@ const SignUp2 = () => {
   );
 };
 
-export default SignUp2;
+export default OtpScreen;

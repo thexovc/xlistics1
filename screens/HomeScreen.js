@@ -63,7 +63,7 @@ const HomeScreen = ({navigation}) => {
         />
 
         {/* <NavOptions /> */}
-        <FlatList
+        {/* <FlatList
       data={data}
       horizontal
       keyExtractor={(item) => item.id}
@@ -84,7 +84,41 @@ const HomeScreen = ({navigation}) => {
           </View>
         </TouchableOpacity>
         )}
-    />
+    /> */}
+
+
+<TouchableOpacity 
+        // onPress={() => navigation.navigate(item.screen)}
+        onPress={onShowPopup}
+        style={tw`p-2 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40`}>
+          <View style={tw`w-150 h-50`}>
+            <Image
+              style= {{ width: 80, height: 100, resizeMode: "contain" }}
+              source={data[0].image}
+            />
+            <Text style={tw`mt-2 text-lg font-semibold pl-2`}>Book Courier</Text>
+            <Icon 
+              style={tw`p-2 bg-black rounded-full w-10 mt-4`}
+              name= "arrowright" color="white" type="antdesign" />
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+        // onPress={() => navigation.navigate(item.screen)}
+        onPress={onShowPopup}
+        style={tw`p-2 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40`}>
+          <View style={tw`w-150 h-50`}>
+            <Image
+              style= {{ width: 80, height: 100, resizeMode: "contain" }}
+              source={data[1].image}
+            />
+            <Text style={tw`mt-2 text-lg font-semibold pl-2`}>{data[1].title}</Text>
+            <Icon 
+              style={tw`p-2 bg-black rounded-full w-10 mt-4`}
+              name= "arrowright" color="white" type="antdesign" />
+          </View>
+        </TouchableOpacity>
+
       </View>
       
       <View style={{alignItems: 'flex-start', justifyContent: 'center', marginLeft: 200, marginTop: -400}}>

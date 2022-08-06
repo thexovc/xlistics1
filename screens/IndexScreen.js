@@ -35,7 +35,7 @@ const IndexScreen = () => {
       </TouchableOpacity>
       </View>
       <View style={tw`h-16 pt-8  w-80 self-center`}>
-      <TouchableOpacity onPress={() => navigation.navigate("SignUpScreen")} style={tw`h-10 w-full rounded-md bg-black`}>
+      <TouchableOpacity onPress={() => navigation.navigate("Login")} style={tw`h-10 w-full rounded-md bg-black`}>
         <Text style={tw`text-white font-bold text-center pt-2`}>Be a courier/proxy</Text>
       </TouchableOpacity>
       </View>
