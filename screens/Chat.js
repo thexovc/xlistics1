@@ -5,9 +5,78 @@ import Iconz from '@expo/vector-icons/FontAwesome'
 import Icony from '@expo/vector-icons/Ionicons'
 import tw from 'twrnc'
 import ProfileP from '../assets/pro.png'
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../context/userContext";
+import { collection, getDocs, onSnapshot, where } from "firebase/firestore";
+import db, { authentication } from "../firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 
-export default function ChatScreen() {
+export default function ChatScreen({route}) {
+  const { client } = route.params;
+  const {user, me} = useContext(UserContext)
+
+  const [msg, setMsg] = useState("") 
+  const [allMsg, setAllMsg] = useState([])
+
+  console.log("client", client)
+
+  const getMsg = async () => {
+      // const querySnapshot = await getDocs(collection(db, "messages", user, "dm"), where("sender", "==", user));
+
+      const userID = client
+      const col = await collection(db, `messages/${userID}/dm`)
+      // const q = col
+      const q = query(col, where("sender", "==", user));
+
+      const qSnap = await getDocs(q)
+      // console.log(qSnap)
+      // console.log(qSnap.docs.map(d => ({ id: d.id, ...d.data() })))
+
+      onSnapshot(q, (snapshot) => {
+          setAllMsg(snapshot.docs.map(doc => ({
+              id: doc.id,
+              data: doc.data()
+          })))
+      })
+
+  }
+
+  
+  const sendMsg = async () => {
+    try {
+        const docRef = await addDoc(collection(db, "messages", user, "dm"), {
+            sender: user.uid,
+            receiver: client,
+            msg,
+            timestamp: serverTimestamp()
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+  useEffect(() => {
+      onAuthStateChanged(authentication, (userP) => {
+          if (userP) {
+              setUser(userP.uid)
+              // console.log("Sign-in provider: " + userP.providerId);
+
+              getMsg()
+
+              // console.log(allMsg)
+          } else {
+              setUser("No user")
+          }
+      })
+
+
+  }, [allMsg])
+
+
+
+
   return (
    <SafeAreaView style={tw`bg-blue-900 py-6 h-full`}>
      {/* Header */}

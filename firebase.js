@@ -4,7 +4,7 @@ import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
 
-  apiKey: "AIzaSyB2_CNeLbCPXUOu2LqwVPu69MAntmZLm3o",
+  apiKey: "AIzaSyB2_CNeLbCPXUOu2LqwVPu69MAntmZLmc3o",
 
   authDomain: "xlistics-6b46a.firebaseapp.com",
 

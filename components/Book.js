@@ -60,7 +60,8 @@ const Book = () => {
                   category,
                   amount,
                   desc,
-                  status: "open"
+                  status: "open",
+                  proxy: ""
               })
 
               setDesc("")

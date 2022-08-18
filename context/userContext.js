@@ -6,9 +6,8 @@ import db, { authentication } from "../firebase";
 export const UserContext = createContext()
 
 export const UserProvider = ({children}) => {
-
-    const [user, setUser] = useState(null)
-
+  const [user, setUser] = useState(null)
+  const [me, setMe] = useState(null)
 
 
   useEffect(() => {
@@ -16,12 +15,18 @@ export const UserProvider = ({children}) => {
       try {
         onAuthStateChanged(authentication, async (fuser) => {
           if (fuser) {
-            // const uid = user.uid;
             setUser(fuser)
-            // console.log("user id:", user.uid)
           }
 
-         
+          const col = collection(db, `proxy`)
+          const q = query(col, where("uid", "==", fuser.uid));
+
+          onSnapshot(q, async (snapshot) => {
+            setMe(snapshot.docs.map(doc => ({
+              id: doc.id,
+              data: doc.data()
+            })))
+          })
         });
       } catch (error) {
         console.log(error)
@@ -34,8 +39,9 @@ export const UserProvider = ({children}) => {
   }, [])
 
 
+
     return (
-        <UserContext.Provider value={{user}}>
+        <UserContext.Provider value={{user, me}}>
             {children}
         </UserContext.Provider>
     )
