@@ -1,25 +1,25 @@
 import { Button, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
-import { collection, onSnapshot, query, where, doc, updateDoc} from 'firebase/firestore'
+import { collection, onSnapshot, query, where, doc, updateDoc } from 'firebase/firestore'
 import db from '../src/firebase'
 import { UserContext } from '../context/userContext'
 import tw from 'twrnc';
 import { useNavigation } from '@react-navigation/native'
 
 
-const InterCity = ({navigate}) => {
+const InterCity = ({ navigate }) => {
     const navigation = useNavigation();
 
     const [interCity, setInterCity] = useState(null)
     const [go, setGo] = useState(false)
-    const {user} = useContext(UserContext)
+    const { user } = useContext(UserContext)
 
-    
+
     const getCity = async () => {
 
         const col = collection(db, `openBookings`)
-        const q = query(col, where("status", "==", "open"), where("category", "==","Intercity"));
-       
+        const q = query(col, where("status", "==", "open"), where("category", "==", "Intercity"));
+
         onSnapshot(q, (snapshot) => {
             setInterCity(snapshot.docs.map(doc => ({
                 id: doc.id,
@@ -36,19 +36,20 @@ const InterCity = ({navigate}) => {
         })
     }
 
-    const handleAccept = async (data) => {
-        const col = collection(db, `openBookings`, data.id)
-        
+    const handleAccept = async (id) => {
+        console.log(id)
+        const col = doc(db, `openBookings/${id}`)
+
         await updateDoc(col, {
             status: "closed",
             proxy: user.uid
-          });
+        }).then(() => {
+            navigation.navigate("Chat", {
+                client: client
+            })
+        })
 
-        // navigation.navigate("Chat", {
-        //     client: client
-        // })
     }
-
 
     useEffect(() => {
         const colRef = collection(db, "proxy")
@@ -63,37 +64,37 @@ const InterCity = ({navigate}) => {
                 console("No Permission")
             }
         })
-        
+
 
     }, [])
 
-  return (
-    <View>
-         {go ? (
-         <>
-          {interCity.map(({ id, data }) => (
+    return (
+        <View>
+            {go ? (
+                <>
+                    {interCity.map(({ id, data }) => (
                         <View key={id}>
-                           <Text> to: {data.destination}</Text>
-                           <Text>  Amount: {data.amount}</Text>
-                           <Text>  desc: {data.desc}</Text>
-                           
-                           <TouchableOpacity  onPress={() => handleAccept(data)}  style={tw`h-10 w-80 rounded-md bg-black self-center mb-2`} > 
-        <Text style={tw`text-white text-lg text-center pt-2.5`}>Accept Order</Text>
-      </TouchableOpacity>
+                            <Text> to: {data.destination}</Text>
+                            <Text>  Amount: {data.amount}</Text>
+                            <Text>  desc: {data.desc}</Text>
 
-                           <TouchableOpacity  onPress={() => handleChat(data.user)}  style={tw`h-10 w-80 rounded-md bg-black self-center mb-2`} > 
-        <Text style={tw`text-white text-lg text-center pt-2.5`}>chat with client</Text>
-      </TouchableOpacity>
+                            <TouchableOpacity onPress={() => handleAccept(id)} style={tw`h-10 w-80 rounded-md bg-black self-center mb-2`} >
+                                <Text style={tw`text-white text-lg text-center pt-2.5`}>Accept Order</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => handleChat(data.user)} style={tw`h-10 w-80 rounded-md bg-black self-center mb-2`} >
+                                <Text style={tw`text-white text-lg text-center pt-2.5`}>chat with client</Text>
+                            </TouchableOpacity>
                         </View>
                     ))}
                 </>
-         )
-          : (
-            <Text>  Wahala </Text>                        
-          )}
-      
-    </View>
-  )
+            )
+                : (
+                    <Text>  Wahala </Text>
+                )}
+
+        </View>
+    )
 }
 
 export default InterCity
